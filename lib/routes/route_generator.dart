@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travel_booking/pages/Authentication/login.dart';
 import 'package:travel_booking/pages/Navbar/navbar.dart';
+import 'package:travel_booking/pages/splash.dart';
 import 'package:travel_booking/pages/views/holiday/single_holiday.dart';
 import 'package:travel_booking/pages/views/home.dart';
 
@@ -36,6 +37,8 @@ class RouteGenerator {
 
       case Navbar.routeName:
         return MaterialPageRoute(builder: (_) => const Navbar());
+  case SplashScreen.routeName:
+        return MaterialPageRoute(builder: (_) => const SplashScreen());
 
       case SingleHotelScreen.routeName:
         return MaterialPageRoute(builder: (_) => SingleHotelScreen(id: args as String,));

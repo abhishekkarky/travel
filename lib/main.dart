@@ -6,6 +6,7 @@ import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
 import 'package:travel_booking/firebase_options.dart';
 import 'package:travel_booking/pages/Authentication/login.dart';
+import 'package:travel_booking/pages/splash.dart';
 import 'package:travel_booking/providers/airline_view_model.dart';
 import 'package:travel_booking/providers/auth_view_model.dart';
 import 'package:travel_booking/providers/common_view_model.dart';
@@ -44,7 +45,7 @@ class MyApp extends StatelessWidget {
         child: const MaterialApp(
           title: 'Travel Booking',
           debugShowCheckedModeBanner: false,
-          initialRoute: Login.routeName,
+          initialRoute: SplashScreen.routeName,
           onGenerateRoute: RouteGenerator.generateRoute,
         ),
       ),
