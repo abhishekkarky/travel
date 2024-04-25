@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:travel_booking/pages/views/airlines/airlines_screen.dart';
+import 'package:travel_booking/pages/views/bookings/booking_screen.dart';
 import 'package:travel_booking/pages/views/home.dart';
 import 'package:travel_booking/pages/views/hotel/hotel.dart';
+import 'package:travel_booking/providers/hotel_view_model.dart';
+
+import '../views/holiday/holiday_package.dart';
 
 class Navbar extends StatefulWidget {
   const Navbar({super.key});
+  static const String routeName = "/nav-bar";
 
   @override
   State<Navbar> createState() => _NavbarState();
@@ -12,12 +19,19 @@ class Navbar extends StatefulWidget {
 class _NavbarState extends State<Navbar> {
   int _selectedIndex = 0;
 
+
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+  }
+
   static final List<Widget> _widgetOptions = <Widget>[
-    const Home(),
     const Hotel(),
-    Container(
-      child: const Text('data'),
-    ),
+    const AirlineScreen(),
+    const HolidayPackageScreen(),
+    const BookingScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -33,18 +47,26 @@ class _NavbarState extends State<Navbar> {
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
+   showUnselectedLabels: true,
+        unselectedItemColor: Colors.grey.shade600,
+        unselectedLabelStyle: TextStyle(color: Colors.grey.shade600),
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.hotel),
-            label: 'Hotels',
+            label: 'Hotel',
+          ),
+
+          BottomNavigationBarItem(
+            icon: Icon(Icons.airplane_ticket_sharp),
+            label: 'Airlines',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.book),
-            label: 'Airlines',
+            icon: Icon(Icons.backpack),
+            label: 'Packages',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.my_library_books),
+            label: 'Bookings',
           ),
         ],
         currentIndex: _selectedIndex,

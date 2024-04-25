@@ -1,12 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:provider/provider.dart';
 import 'package:travel_booking/pages/Authentication/firebase_auth_service.dart';
 import 'package:travel_booking/pages/Authentication/register.dart';
 import 'package:travel_booking/pages/Navbar/navbar.dart';
+import 'package:travel_booking/providers/auth_view_model.dart';
+
+import '../../services/notification_service.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
+  static const String routeName = "/login";
 
   @override
   State<Login> createState() => _LoginState();
@@ -15,14 +21,49 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final FirebaseAuthService _auth = FirebaseAuthService();
   final key = GlobalKey<FormState>();
+  late AuthViewModel _authViewModel;
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _authViewModel = Provider.of<AuthViewModel>(context,listen: false);
+      // checkLogin();
+    });
+
+    super.initState();
+  }
+
+  // void checkLogin() async{
+  //   String? token = await FirebaseMessaging.instance.getToken();
+  //
+  //   await Future.delayed(const Duration(seconds: 2));
+  //   // check for user detail first
+  //   try{
+  //     await _authViewModel.checkLogin(token);
+  //     if(_authViewModel.user==null){
+  //       Navigator.of(context).pushReplacementNamed(Login.routeName);
+  //     }else{
+  //       NotificationService.display(
+  //         title: "Welcome back",
+  //         body: "Hello ${_authViewModel.loggedInUser?.name},\n We have been waiting for you.",
+  //       );
+  //       Navigator.of(context).pushReplacementNamed(Navbar.routeName);
+  //     }
+  //   }catch(e){
+  //     Navigator.of(context).pushReplacementNamed(Login.routeName);
+  //   }
+  //
+  // }
   @override
   void dispose() {
     // TODO: implement dispose
     emailController.dispose();
     passwordController.dispose();
+
     super.dispose();
   }
 
@@ -153,24 +194,44 @@ class _LoginState extends State<Login> {
     );
   }
 
-  void _signIn() async {
-    String email = emailController.text;
-    String password = passwordController.text;
-
-    User? user = await _auth.signInWithEmailAndPassword(email, password);
-
-    if (user != null) {
-      showSimpleNotification(const Text('Welcome'),
-          background: Colors.green, position: NotificationPosition.bottom);
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const Navbar(),
-        ),
+  // void _signIn() async {
+  //   String email = emailController.text;
+  //   String password = passwordController.text;
+  //
+  //   User? user = await _auth.signInWithEmailAndPassword(email, password);
+  //
+  //   if (user != null) {
+  //     showSimpleNotification(const Text('Welcome'),
+  //         background: Colors.green, position: NotificationPosition.bottom);
+  //     Navigator.push(
+  //       context,
+  //       MaterialPageRoute(
+  //         builder: (context) => const Navbar(),
+  //       ),
+  //     );
+  //   } else {
+  //     showSimpleNotification(const Text('Invalid username or password'),
+  //         background: Colors.red, position: NotificationPosition.bottom);
+  //   }
+  // }
+void _signIn() async{
+  try {
+    await _authViewModel
+        .login(emailController.text, passwordController.text)
+        .then((value) {
+      NotificationService.display(
+        title: "Welcome back",
+        body:
+        "Hello ${_authViewModel.loggedInUser?.name},\n Hope you are having a wonderful day.",
       );
-    } else {
-      showSimpleNotification(const Text('Invalid username or password'),
-          background: Colors.red, position: NotificationPosition.bottom);
-    }
+      Navigator.of(context).pushReplacementNamed(Navbar.routeName);
+    }).catchError((e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.message.toString())));
+    });
+  } catch (err) {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(err.toString())));
   }
+}
 }
