@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void checkLogin() async{
     String? token = await FirebaseMessaging.instance.getToken();
 
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(Duration(seconds: 3));
     // check for user detail first
     try{
       await _authViewModel.checkLogin(token);
@@ -54,16 +54,19 @@ class _SplashScreenState extends State<SplashScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    return  const Scaffold(
+    return   Scaffold(
       body: Center(
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 60,),
-              Text("Travel Booking", style: TextStyle(
+              const SizedBox(height: 60,),
+              Image.asset("assets/images/travel.jpg"),
+              const SizedBox(height: 30,),
+              const Text("Travel Booking", style: TextStyle(
                   fontSize: 22
               ),),
-              CupertinoActivityIndicator()
+              const SizedBox(height: 30,),
+              const CupertinoActivityIndicator()
             ],
           ),
         ),
