@@ -46,6 +46,8 @@ dependencies:
   intl:
   carousel_slider:
   smooth_page_indicator:
+  flutter_map: ^6.1.0
+  latlong2: ^0.9.1
 
 
 dev_dependencies:
