@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:travel_booking/pages/model/book_model.dart';
 import 'package:travel_booking/repo/booking_repo.dart';
+import 'package:travel_booking/widgets/flight_settings.dart';
 
 import '../../../providers/auth_view_model.dart';
 import '../../../providers/single_hotel_viewmodel.dart';
@@ -108,49 +109,9 @@ class _SingleAirlinesBodyState extends State<SingleAirlinesBody> {
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.green),
                           onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  actions: [
-                                    TextButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: const Text("No")),
-                                    TextButton(
-                                        onPressed: () {
-                                          BookingRepo()
-                                              .addToCart(BookingModel(
-                                            bookingName: singleProductVM
-                                                    .airlines?.airlineName ??
-                                                "",
-                                            bookingType: "Airlines",
-                                            imageUrl: singleProductVM
-                                                .airlines!.imageUrl,
-                                            price:
-                                                singleProductVM.airlines!.price,
-                                            productId:
-                                                singleProductVM.airlines!.id,
-                                          ))
-                                              .then((value) {
-                                            Navigator.of(context).pop();
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(const SnackBar(
-                                                    content: Text(
-                                                        "Booking successful")));
-                                          });
-                                        },
-                                        child: const Text("Yes"))
-                                  ],
-                                  title: const Text("Confirm"),
-                                  content: Text(
-                                    "Are you sure you want to book ${singleProductVM.airlines!.airlineName}",
-                                    style: const TextStyle(fontSize: 20),
-                                  ),
-                                );
-                              },
-                            );
+
+                            Navigator.of(context).pushNamed(FlightSetting.routeName);
+
                           },
                           child: const Text(
                             "Book now",

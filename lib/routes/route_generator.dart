@@ -7,6 +7,7 @@ import 'package:travel_booking/pages/views/home.dart';
 
 import '../pages/views/airlines/single_airlines.dart';
 import '../pages/views/hotel/single_hotel.dart';
+import '../widgets/flight_settings.dart';
 
 class RouteGenerator {
   static final GlobalKey<NavigatorState> navigatorKey =
@@ -34,18 +35,29 @@ class RouteGenerator {
 
       case Login.routeName:
         return MaterialPageRoute(builder: (_) => const Login());
+      case FlightSetting.routeName:
+        return MaterialPageRoute(builder: (_) => const FlightSetting());
 
       case Navbar.routeName:
         return MaterialPageRoute(builder: (_) => const Navbar());
-  case SplashScreen.routeName:
+      case SplashScreen.routeName:
         return MaterialPageRoute(builder: (_) => const SplashScreen());
 
       case SingleHotelScreen.routeName:
-        return MaterialPageRoute(builder: (_) => SingleHotelScreen(id: args as String,));
-case SingleHolidayScreen.routeName:
-        return MaterialPageRoute(builder: (_) => SingleHolidayScreen(id: args as String,));
-case SingleAirlinesScreen.routeName:
-        return MaterialPageRoute(builder: (_) => SingleAirlinesScreen(id: args as String,));
+        return MaterialPageRoute(
+            builder: (_) => SingleHotelScreen(
+                  id: args as String,
+                ));
+      case SingleHolidayScreen.routeName:
+        return MaterialPageRoute(
+            builder: (_) => SingleHolidayScreen(
+                  id: args as String,
+                ));
+      case SingleAirlinesScreen.routeName:
+        return MaterialPageRoute(
+            builder: (_) => SingleAirlinesScreen(
+                  id: args as String,
+                ));
 
       default:
         return _errorRoute();
