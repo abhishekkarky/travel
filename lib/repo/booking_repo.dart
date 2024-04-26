@@ -26,6 +26,8 @@ class BookingRepo {
         final BookingModel _data = BookingModel(
             userId: uid,
             price: data.price,
+            child: data.child,
+            adult: data.adult,
             bookingType: data.bookingType,
             imageUrl: data.imageUrl,
             productId: data.productId,

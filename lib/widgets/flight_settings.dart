@@ -115,6 +115,12 @@ class _FlightSettingState extends State<FlightSetting> {
                   child: Text(
                       "*** Infants must be less or equal than number of Adults"),
                 ),
+
+                const SizedBox(
+                  height: 40,
+                ),
+
+
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
@@ -144,7 +150,7 @@ class _FlightSettingState extends State<FlightSetting> {
                           Text("Booking successful")));
                     });
                   },
-                  child: const Text("Confirm Booking")),
+                  child: Text("Confirm Booking",style: TextStyle(color: white),)),
             ),
 
 
