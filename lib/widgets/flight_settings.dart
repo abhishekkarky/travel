@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
 
 import '../constants/app_colors.dart';
@@ -11,7 +10,7 @@ import 'custom_chip.dart';
 import 'custom_text_button.dart';
 
 class FlightSetting extends StatefulWidget {
-  const FlightSetting({Key? key}) : super(key: key);
+  const FlightSetting({super.key});
   static const String routeName = "/flight-setting";
 
   @override
@@ -38,8 +37,8 @@ class _FlightSettingState extends State<FlightSetting> {
               width: 450,
               height: 35,
               color: lightGreen2,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(20, 6, 0, 6),
+              child: const Padding(
+                padding: EdgeInsets.fromLTRB(20, 6, 0, 6),
                 child: Text(
                   'Cabin type:',
                 ),
@@ -56,7 +55,8 @@ class _FlightSettingState extends State<FlightSetting> {
                     isSelected: Provider.of<FlightSettingProvider>(context)
                         .economyCabin,
                     onTap: () {
-                      Provider.of<FlightSettingProvider>(context, listen: false)
+                      Provider.of<FlightSettingProvider>(context,
+                              listen: false)
                           .setEconomyCabin();
                     },
                   ),
@@ -65,7 +65,8 @@ class _FlightSettingState extends State<FlightSetting> {
                     isSelected: Provider.of<FlightSettingProvider>(context)
                         .businessCabin,
                     onTap: () {
-                      Provider.of<FlightSettingProvider>(context, listen: false)
+                      Provider.of<FlightSettingProvider>(context,
+                              listen: false)
                           .setBusinessCabin();
                     },
                   ),
@@ -74,7 +75,8 @@ class _FlightSettingState extends State<FlightSetting> {
                     isSelected: Provider.of<FlightSettingProvider>(context)
                         .premiumEconomyCabin,
                     onTap: () {
-                      Provider.of<FlightSettingProvider>(context, listen: false)
+                      Provider.of<FlightSettingProvider>(context,
+                              listen: false)
                           .setPremiumEconomyCabin();
                     },
                   ),
@@ -85,14 +87,14 @@ class _FlightSettingState extends State<FlightSetting> {
               width: double.infinity,
               height: 35,
               color: lightGreen2,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(20, 6, 0, 6),
+              child: const Padding(
+                padding: EdgeInsets.fromLTRB(20, 6, 0, 6),
                 child: Text(
                   'Travellers',
                 ),
               ),
             ),
-
+        
             CustomTextAndButton(
               title: 'Adults',
               title_1: '',
@@ -112,7 +114,7 @@ class _FlightSettingState extends State<FlightSetting> {
                     .addAdult();
               },
             ),
-
+        
             CustomTextAndButton(
               title: 'Children',
               title_1: '2-11 years old',
@@ -150,57 +152,62 @@ class _FlightSettingState extends State<FlightSetting> {
             ),
             Consumer<SingleHotelViewModel>(
                 builder: (context, singleProductVM, child) {
-              return ElevatedButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          actions: [
-                            TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: const Text("No")),
-                            TextButton(
-                                onPressed: () {
-                                  BookingRepo()
-                                      .addToCart(BookingModel(
-                                    bookingName:
-                                        singleProductVM.airlines?.airlineName ??
-                                            "",
-                                    bookingType: "Airlines",
-                                    imageUrl:
-                                        singleProductVM.airlines!.imageUrl,
-                                    price: singleProductVM.airlines!.price,
-                                    productId: singleProductVM.airlines!.id,
-                                    adult: Provider.of<FlightSettingProvider>(
-                                            context)
-                                        .adultCount,
-                                    child: Provider.of<FlightSettingProvider>(
-                                            context)
-                                        .childrenCount,
-                                  ))
-                                      .then((value) {
+              return SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            actions: [
+                              TextButton(
+                                  onPressed: () {
                                     Navigator.of(context).pop();
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(
-                                            content:
-                                                Text("Booking successful")));
-                                  });
-                                },
-                                child: const Text("Yes"))
-                          ],
-                          title: const Text("Confirm "),
-                          content: Text(
-                            "Are you sure you want to book ${singleProductVM.airlines!.airlineName}",
-                            style: const TextStyle(fontSize: 20),
-                          ),
-                        );
-                      },
-                    );
-                  },
-                  child: Text("Confirm Booking"));
+                                  },
+                                  child: const Text("No")),
+                              TextButton(
+                                  onPressed: () {
+                                    BookingRepo()
+                                        .addToCart(BookingModel(
+                                      bookingName: singleProductVM
+                                              .airlines?.airlineName ??
+                                          "",
+                                      bookingType: "Airlines",
+                                      imageUrl:
+                                          singleProductVM.airlines!.imageUrl,
+                                      price: singleProductVM.airlines!.price,
+                                      productId: singleProductVM.airlines!.id,
+                                      adult: Provider.of<FlightSettingProvider>(
+                                              context)
+                                          .adultCount,
+                                      child: Provider.of<FlightSettingProvider>(
+                                              context)
+                                          .childrenCount,
+                                    ))
+                                        .then((value) {
+                                      Navigator.of(context).pop();
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                              content:
+                                                  Text("Booking successful")));
+                                    });
+                                  },
+                                  child: const Text("Yes"))
+                            ],
+                            title: const Text("Confirm "),
+                            content: const Text(
+                              "Are you sure you want to book",
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    child: const Text("Confirm Booking")),
+              );
             }),
             // CustomTextAndButton(
             //   title: 'Toddler in own seat',
@@ -217,7 +224,7 @@ class _FlightSettingState extends State<FlightSetting> {
             //         .addInfantOnSeat();
             //   },
             // ),
-
+        
             const SizedBox(
               height: 20,
             ),
@@ -227,7 +234,7 @@ class _FlightSettingState extends State<FlightSetting> {
             //         height: 48,
             //         buttonName: 'Save',
             //         onClick: () {})),
-            SizedBox(
+            const SizedBox(
               height: 48,
             )
           ],
