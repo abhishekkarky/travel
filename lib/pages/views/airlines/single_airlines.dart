@@ -14,11 +14,9 @@ class SingleAirlinesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<SingleHotelViewModel>(
-        create: (_) => SingleHotelViewModel(),
-        child: SingleAirlinesBody(
-          id: id,
-        ));
+    return SingleAirlinesBody(
+      id: id,
+    );
   }
 }
 
@@ -110,7 +108,7 @@ class _SingleAirlinesBodyState extends State<SingleAirlinesBody> {
                               backgroundColor: Colors.green),
                           onPressed: () {
 
-                            Navigator.of(context).pushNamed(FlightSetting.routeName);
+                            Navigator.of(context).pushNamed(FlightSetting.routeName,arguments: singleProductVM.airlines);
 
                           },
                           child: const Text(

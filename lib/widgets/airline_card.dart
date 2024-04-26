@@ -16,7 +16,7 @@ class AirlineCard extends StatelessWidget {
         // print(e.id);
         Navigator.of(context).pushNamed(SingleAirlinesScreen.routeName, arguments: e.id);
       },
-      child: Container(
+      child: SizedBox(
         width: 250,
         child: Card(
           elevation: 5,

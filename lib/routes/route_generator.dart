@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travel_booking/pages/Authentication/login.dart';
 import 'package:travel_booking/pages/Navbar/navbar.dart';
+import 'package:travel_booking/pages/model/airline_repo.dart';
 import 'package:travel_booking/pages/splash.dart';
 import 'package:travel_booking/pages/views/holiday/single_holiday.dart';
 import 'package:travel_booking/pages/views/home.dart';
@@ -36,7 +37,7 @@ class RouteGenerator {
       case Login.routeName:
         return MaterialPageRoute(builder: (_) => const Login());
       case FlightSetting.routeName:
-        return MaterialPageRoute(builder: (_) => const FlightSetting());
+        return MaterialPageRoute(builder: (_) => FlightSetting(data: args as AirlineModel,));
 
       case Navbar.routeName:
         return MaterialPageRoute(builder: (_) => const Navbar());

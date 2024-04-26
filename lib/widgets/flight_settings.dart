@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:travel_booking/pages/model/airline_repo.dart';
 
 import '../constants/app_colors.dart';
 import '../pages/model/book_model.dart';
@@ -10,7 +11,8 @@ import 'custom_chip.dart';
 import 'custom_text_button.dart';
 
 class FlightSetting extends StatefulWidget {
-  const FlightSetting({super.key});
+  AirlineModel data;
+  FlightSetting({super.key,required this.data});
   static const String routeName = "/flight-setting";
 
   @override
@@ -45,53 +47,7 @@ class _FlightSettingState extends State<FlightSetting> {
                 const SizedBox(
                   height: 15,
                 ),
-                Container(
-                  width: 450,
-                  height: 35,
-                  color: lightGreen2,
-                  child: const Padding(
-                    padding: EdgeInsets.fromLTRB(20, 6, 0, 6),
-                    child: Text(
-                      'Cabin type:',
-                    ),
-                  ),
-                ),
-                // SizedBox(height: 16,),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(8, 16, 8, 16),
-                  child: Wrap(
-                    direction: Axis.horizontal,
-                    children: [
-                      CustomChip(
-                        title: 'Economy',
-                        isSelected: flightSettings
-                            .economyCabin,
-                        onTap: () {
-                          flightSettings
-                              .setEconomyCabin();
-                        },
-                      ),
-                      CustomChip(
-                        title: 'Business',
-                        isSelected:flightSettings
-                            .businessCabin,
-                        onTap: () {
-                          flightSettings
-                              .setBusinessCabin();
-                        },
-                      ),
-                      CustomChip(
-                        title: 'Premium Economy',
-                        isSelected: flightSettings
-                            .premiumEconomyCabin,
-                        onTap: () {
-                          flightSettings
-                              .setPremiumEconomyCabin();
-                        },
-                      ),
-                    ],
-                  ),
-                ),
+
                 Container(
                   width: double.infinity,
                   height: 35,
