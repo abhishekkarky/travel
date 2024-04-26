@@ -200,7 +200,7 @@ class _FlightSettingState extends State<FlightSetting> {
                       },
                     );
                   },
-                  child: Text("Confirm Booking"));
+                  child: const Text("Confirm Booking"));
             }),
             // CustomTextAndButton(
             //   title: 'Toddler in own seat',
